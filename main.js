@@ -1,18 +1,18 @@
-// main.js — fetch a random activity from the Bored API and display it
+
 document.addEventListener('DOMContentLoaded', () => {
   const buttons = Array.from(document.querySelectorAll('.activity-btn'));
   const activityEl = document.getElementById('activity');
-  const container = document.querySelector('.container');           // NEW
-  const timeInput = document.getElementById('time-input');          // moved up
-  const startPauseBtn = document.getElementById('start-pause-btn'); // moved up
-  const countdownEl = document.getElementById('countdown');         // moved up
+  const container = document.querySelector('.container');           
+  const timeInput = document.getElementById('time-input');          
+  const startPauseBtn = document.getElementById('start-pause-btn');
+  const countdownEl = document.getElementById('countdown');         
 
-  // Disable/enable all buttons and update text for the clicked button when loading
+ 
   function setLoading(isLoading, activeBtn) {
     buttons.forEach((b) => {
       b.disabled = isLoading;
       if (!isLoading) {
-        // restore original label from data-type (capitalized) for all buttons
+       
         const t = b.dataset.type;
         b.textContent = t ? (t.charAt(0).toUpperCase() + t.slice(1)) : b.textContent;
       }
@@ -31,8 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const base = 'https://bored-api.appbrewery.com';
     const endpoint = type === 'random' ? '/random' : `/filter?type=${encodeURIComponent(type)}`;
-    const url = `https://corsproxy.io/?${base}${endpoint}`; // CORS proxy for local dev
-
+    const url = `https://corsproxy.io/?${base}${endpoint}`; 
     try {
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // attach handlers
+  
   buttons.forEach((b) => {
     b.addEventListener('click', () => {
       const type = b.dataset.type || 'random';
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Next button: switch to "focus mode" layout
+  
   const nextBtn = document.getElementById('next-btn');
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
@@ -89,13 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (buttonsDiv) buttonsDiv.style.display = 'none';
       nextBtn.style.display = 'none';
 
-      // Let CSS control timer layout in focus mode
-      if (timerArea) timerArea.style.display = '';          // CHANGED (no 'flex' here)
+      
+      if (timerArea) timerArea.style.display = '';          
 
-      // Enter focus mode UI
-  if (container) container.classList.add('focus-ui');   // NEW
-  // keep the time input visible in focus mode so the user sees the 00:00 box
-  // (do not add the 'hidden' class)
+      
+  if (container) container.classList.add('focus-ui');   
+ 
 
       if (activityEl) {
         activityEl.innerHTML = rewardHTML || '<p class="reward">No reward available.</p>';
@@ -106,11 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ===== Focus timer implementation =====
+  
   let timerInterval = null;
   let remainingSeconds = 0;
   let isRunning = false;
-  let audioCtx = null; // Audio context for alarm
+  let audioCtx = null;
 
   function formatTime(seconds) {
     const m = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -135,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateCountdownDisplay() {
-    // Use the single input element as the visible countdown. When running it is disabled.
+    
     if (timeInput) timeInput.value = formatTime(remainingSeconds);
   }
 
@@ -198,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const o = ctx.createOscillator();
       const g = ctx.createGain();
       o.type = 'sine';
-      o.frequency.value = 880; // A5 beep
+      o.frequency.value = 880;
       g.gain.setValueAtTime(0.001, ctx.currentTime);
       o.connect(g);
       g.connect(ctx.destination);
@@ -231,10 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
         if (remainingSeconds > 0 && parsed === 0) {
-          startTimer(remainingSeconds);  // resume
+          startTimer(remainingSeconds);  
         } else {
           if (parsed <= 0) return;
-          startTimer(parsed);            // start fresh
+          startTimer(parsed);            
         }
       } else {
         pauseTimer();
@@ -242,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Optional: click big digits to toggle time input in focus mode
+  
   if (countdownEl) {
     countdownEl.addEventListener('click', () => {
       if (!container.classList.contains('focus-ui')) return;
@@ -255,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // initialize display from the input value
+  
   try {
     const initial = parseTimeInput(timeInput ? timeInput.value : '00:00');
     if (!Number.isNaN(initial)) {
