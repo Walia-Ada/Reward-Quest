@@ -1,10 +1,9 @@
-/* ========== Design tokens ========== */
-:root{
+
   --bg: #ffffff;
-  --ink: #2f3d4a;         /* deep slate/navy for text */
-  --muted: #7f8a94;       /* subtle gray text */
-  --stroke: #9eacb9;      /* light gray-blue border */
-  --cta: #2f3d4a;         /* same ink for solid button */
+  --ink: #2f3d4a;         
+  --muted: #7f8a94;       
+  --stroke: #9eacb9;      
+  --cta: #2f3d4a;         
   --cta-ink: #ffffff;
   --radius: 10px;
   --space-1: 8px;
@@ -15,7 +14,7 @@
   --shadow: 0 1px 0 rgba(0,0,0,.02);
 }
 
-/* ========== Base reset-ish ========== */
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body{
@@ -25,18 +24,18 @@ body{
   font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
 }
 
-/* ========== Page container ========== */
+
 .container{
-  max-width: 840px;             /* matches the centered narrow feel */
+  max-width: 840px;             
   margin: 0 auto;
   padding: clamp(16px, 5vw, 48px);
 }
 
-/* ========== Title + description ========== */
+
 h1{
   margin: 0 0 var(--space-2);
   text-align: center;
-  font-family: "Spectral", Georgia, Cambria, "Times New Roman", serif; /* optional */
+  font-family: "Spectral", Georgia, Cambria, "Times New Roman", serif; 
   font-weight: 600;
   letter-spacing: 0.03em;
   text-transform: uppercase;
@@ -50,7 +49,7 @@ h1{
   font-size: 15px;
 }
 
-/* ========== Button grid (3 x 2) ========== */
+
 .buttons{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -76,7 +75,7 @@ h1{
 .activity-btn:active{ transform: translateY(1px); }
 .activity-btn:disabled{ opacity: .6; cursor: not-allowed; }
 
-/* ========== Reward box ========== */
+
 .activity-output{
   border: 2px solid var(--stroke);
   border-radius: var(--radius);
@@ -89,7 +88,7 @@ h1{
   position: relative;
 }
 
-/* “REWARD” label centered with letter spacing + a light rule under it */
+
 .activity-output::before{
   content: "R E W A R D";
   display: block;
@@ -99,7 +98,7 @@ h1{
   margin-bottom: var(--space-3);
 }
 
-/* the thin line */
+
 .activity-output::after{
   content: "";
   position: absolute;
@@ -110,16 +109,16 @@ h1{
   background: #e5ebf0;
 }
 
-/* the activity text that JS injects */
+
 .reward{
   margin: 0;
   font-size: 18px;
   line-height: 1.4;
 }
 
-/* ========== Timer area (hidden initially) ========== */
+
 .timer-area{
-  display: none; /* starts hidden; JS/CSS shows it when needed */
+  display: none; 
   align-items: center;
   gap: var(--space-2);
   justify-content: center;
@@ -127,7 +126,7 @@ h1{
 }
 
 #time-input{
-  /* Make the input look like plain text (no visible box) */
+ 
   width: auto;
   min-width: 80px;
   text-align: center;
@@ -140,7 +139,7 @@ h1{
   font-family: inherit;
 }
 
-/* In focus mode show large, plain digits (still using the same input element) */
+
 .focus-ui #time-input{
   font-family: "Spectral", Georgia, Cambria, "Times New Roman", serif;
   font-weight: 600;
@@ -166,7 +165,7 @@ h1{
     display: none;
   }
 
-/* ========== Primary CTA (Start Quest) ========== */
+
 .controls{
   display: grid;
   place-items: center;
@@ -188,30 +187,28 @@ h1{
 #next-btn:hover{ filter: brightness(1.1); }
 #next-btn:active{ transform: translateY(1px); }
 
-/* ========== Accessibility focus ========== */
+
 :focus-visible{
   outline: 3px solid #8fb5d6;
   outline-offset: 2px;
 }
 
-/* ========== Small screens ========== */
+
 @media (max-width: 720px){
   .buttons{ grid-template-columns: 1fr; }
 }
 
-/* ======= FOCUS MODE (after Next is clicked) ======= */
 
-/* Entered by adding .focus-ui to .container */
 .focus-ui #timer-area{
-  display: grid;             /* center like the mock */
+  display: grid;            
   place-items: center;
   gap: 24px;
   margin: 24px 0 32px;
 }
 
-/* Big, calm digits */
+
 .focus-ui .countdown{
-  font-family: "Spectral", Georgia, Cambria, "Times New Roman", serif; /* optional */
+  font-family: "Spectral", Georgia, Cambria, "Times New Roman", serif;
   font-weight: 600;
   font-size: clamp(64px, 12vw, 140px);
   letter-spacing: .04em;
@@ -219,7 +216,7 @@ h1{
   color: #3f5060;
 }
 
-/* Single primary button beneath the digits */
+
 .focus-ui #start-pause-btn{
   min-width: 180px;
   padding: 12px 20px;
@@ -228,7 +225,7 @@ h1{
   font-weight: 700;
 }
 
-/* Hide the time input visually in focus mode (still usable by JS) */
+
 #time-input.hidden{
   position: absolute !important;
   width: 1px !important;
@@ -241,7 +238,7 @@ h1{
   white-space: nowrap !important;
 }
 
-/* Spacing above reward box in focus mode */
+
 .focus-ui .activity-output{
   margin-top: 32px;
 }
